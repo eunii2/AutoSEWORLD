@@ -29,7 +29,7 @@
             height: auto;
             margin-right: 10px;
         }
-
+ 
         h1 {
             font-family: 'Zen Dots', cursive;
             font-size: 35px;
@@ -163,5 +163,29 @@
             <div class="bottom-right"></div>
         </div>
     </main>
+    <script>
+        // 페이지 로드 시 데이터를 가져옴
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/conferences')  // 백엔드 API에서 데이터 가져옴
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('conference-table-body');
+                    tableBody.innerHTML = '';  // 기존 데이터를 비움
+
+                    // 데이터를 반복하여 테이블 행에 삽입
+                    data.forEach(conference => {
+                        const row = `<tr>
+                            <td>${conference.conferenceName || '-'}</td>
+                            <td>${conference.submissionDeadline || '-'}</td>
+                            <td><a href="${conference.cfpUrl}" target="_blank">${conference.cfpUrl || '-'}</a></td>
+                            <td>${conference.conferenceLocation || '-'}</td>
+                            <td>${conference.conferenceDates || '-'}</td>
+                        </tr>`;
+                        tableBody.innerHTML += row;
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
 </body>
 </html>
