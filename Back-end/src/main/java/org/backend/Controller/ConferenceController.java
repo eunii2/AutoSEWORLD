@@ -1,17 +1,29 @@
 package org.backend.Controller;
 
+import org.backend.Entity.Conference;
+import org.backend.Repository.ConferenceRepository;
 import org.backend.Service.ConferenceDataLoader;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.IOException;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/conference")
+@RequestMapping("/api")
+@CrossOrigin(origins = "http://localhost:8000")
 public class ConferenceController {
 
     @Autowired
     private ConferenceDataLoader conferenceDataLoader;
+
+    @Autowired
+    private ConferenceRepository conferenceRepository;
+
+    @GetMapping("/conference")
+    public List<Conference> getAllConferences() {
+        return conferenceRepository.findAllOrderedByDeadline();
+    }
 
     @PostMapping("/upload")
     public String uploadJsonData(@RequestParam("filePath") String filePath) {

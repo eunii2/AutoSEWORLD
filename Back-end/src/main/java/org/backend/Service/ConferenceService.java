@@ -25,7 +25,7 @@ public class ConferenceService {
     }
 
     public List<Conference> getSortedConferences() {
-        return conferenceRepository.findConferencesBySubmissionDeadline();
+        return conferenceRepository.findAllOrderedByDeadline();
     }
 
     // 모든 컨퍼런스 데이터를 조회하는 메서드
@@ -33,22 +33,20 @@ public class ConferenceService {
         return conferenceRepository.findAll();
     }
 
-    // 날짜 형식 변환기
+    // 날짜 형식 변환
     private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy.MM.dd");
 
     // 데이터 저장하는 로직
     public Conference saveConference(Conference conference) throws ParseException {
         if ("Y".equals(conference.getIsCfp()) && "Y".equals(conference.getIsConference())) {
-            // 이미 submissionDeadline이 Date 타입이므로 추가적인 변환 불필요
             return conferenceRepository.save(conference);
         }
-        return null; // 조건에 맞지 않으면 저장하지 않음
+        return null;
     }
 
     // 10분마다 데이터를 정렬하여 캐싱 또는 업데이트
     @Scheduled(fixedRate = 600000)  // 10분 간격으로 실행
     public void updateSortedConferences() {
-        List<Conference> sortedConferences = conferenceRepository.findConferencesBySubmissionDeadline();
-        // 캐시나 메모리에 저장 등 필요한 작업 수행 가능
+        List<Conference> sortedConferences = conferenceRepository.findAllOrderedByDeadline();
     }
 }
