@@ -32,12 +32,13 @@ h1 {
     display: flex;
     padding: 0px 80px;
     gap: 20px;
+    height: 720px; /* 전체 높이를 고정해줍니다 */
 }
 
 .left-panel {
-    flex: 2;
+    flex-basis: 66%; /* left-panel이 전체 너비의 2/3 차지 */
     background-color: #ddd;
-    height: 720px;
+    height: 100%; /* 높이를 고정 */
     overflow-y: auto;
 }
 
@@ -50,6 +51,8 @@ th, td {
     padding: 10px;
     text-align: left;
     border: 1px solid #f2f2f2;
+    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+    overflow: auto; /* 잘리면 스크롤 가능 */
 }
 
 th {
@@ -59,37 +62,64 @@ th {
     z-index: 1;
 }
 
+/* 각 열의 너비 설정 */
+th:nth-child(1) {
+    width: 200px; /* Conference Name 열의 고정 너비 */
+}
+
+th:nth-child(2) {
+    width: 150px; /* Submission Deadline 열의 고정 너비 */
+}
+
+th:nth-child(3) {
+    width: 250px; /* CFP URL 열의 고정 너비 */
+}
+
+th:nth-child(4) {
+    width: 180px; /* Conference Location 열의 고정 너비 */
+}
+
+th:nth-child(5) {
+    width: 180px; /* Conference Dates 열의 고정 너비 */
+}
+
+/* 행에 마우스를 올렸을 때 호버 효과 */
 .left-panel tbody tr:hover {
-    background-color: #c9c9c9;
+    background-color: #cbcaca;
 }
 
-.conference-name-btn {
-    background: none;
-    border: none;
-    color: blue;
-    text-decoration: underline;
+a.conference-name-link {
+    color: black;
+    text-decoration: none;
     cursor: pointer;
+    text-decoration: none; /* 밑줄 제거 */
+    color: inherit; /* 링크 색상을 부모 요소의 색상과 동일하게 설정 */
+    cursor: default; /* 마우스 커서를 기본 상태로 유지 */
 }
 
-.conference-name-btn:hover {
-    color: darkblue;
-}
+a.conference-name-link:hover {
+    color: rgb(99, 99, 99);
+} 
 
 .right-panel {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex-basis: 34%;
+    height: 100%; /* 패널의 높이를 고정 */
     gap: 20px;
+    overflow: hidden;
 }
 
 .top-right {
     background-color: #ddd;
-    height: 504px;
+    flex: 3; /* top-right가 right-panel 내에서 3/4 차지 */
+    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
 }
 
 .bottom-right {
     background-color: #ddd;
-    height: 196px;
+    flex: 1.19; /* bottom-right가 right-panel 내에서 1/4 차지 */
+    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
 }
 
 .bottom-right table {
@@ -107,11 +137,41 @@ th {
     background-color: #adadad;
     font-weight: bold;
     color: #000;
-    width: 35%;
+    width: 37%;
 }
 
 .bottom-right td {
-    width: 65%;
+    width: 63%;
+}
+
+/* 툴팁 컨테이너 스타일 */
+.conference-name-link {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.conference-name-link::after {
+    content: attr(data-tooltip); /* 툴팁 내용 */
+    position: absolute;
+    bottom: 125%; /* 위로 띄우기 */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #333;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 12px;
+    white-space: nowrap;
+    visibility: hidden; /* 기본적으로 숨김 */
+    opacity: 0;
+    z-index: 99; /* 툴팁을 가장 앞에 배치 */
+    transition: opacity 0.2s;
+}
+
+.conference-name-link:hover::after {
+    visibility: visible;
+    opacity: 1; /* 마우스를 올렸을 때 툴팁 표시 */
 }
 
 @media (max-width: 768px) {
