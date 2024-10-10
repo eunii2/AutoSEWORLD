@@ -1,3 +1,4 @@
+/* 기본 스타일 설정 */
 * {
     margin: 0;
     padding: 0;
@@ -8,10 +9,11 @@ body {
     font-family: Arial, sans-serif;
 }
 
+/* 헤더 */
 .header {
     display: flex;
     align-items: center;
-    padding: 60px 80px 20px;
+    padding: 60px 160px 20px;
     background-color: #fff;
     margin-bottom: 15px;
 }
@@ -28,31 +30,35 @@ h1 {
     font-weight: bold;
 }
 
+/* 콘텐츠 레이아웃 */
 .content {
     display: flex;
-    padding: 0px 80px;
+    padding: 0px 160px;
     gap: 20px;
-    height: 720px; /* 전체 높이를 고정해줍니다 */
+    height: 720px;
 }
 
+/* 왼쪽 패널 스타일 */
 .left-panel {
-    flex-basis: 66%; /* left-panel이 전체 너비의 2/3 차지 */
+    flex-basis: 63%;
     background-color: #ddd;
-    height: 100%; /* 높이를 고정 */
+    height: 100%;
     overflow-y: auto;
 }
 
+/* 테이블 스타일 */
 table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 th, td {
     padding: 10px;
     text-align: left;
     border: 1px solid #f2f2f2;
-    white-space: nowrap; /* 텍스트 줄바꿈 방지 */
-    overflow: auto; /* 잘리면 스크롤 가능 */
+    white-space: nowrap;
+    overflow: auto;
 }
 
 th {
@@ -62,64 +68,82 @@ th {
     z-index: 1;
 }
 
-/* 각 열의 너비 설정 */
-th:nth-child(1) {
-    width: 200px; /* Conference Name 열의 고정 너비 */
+.left-panel th {
+    font-size: 20px;
 }
 
-th:nth-child(2) {
-    width: 150px; /* Submission Deadline 열의 고정 너비 */
+/* 스크롤 설정 */
+td {
+    overflow-x: auto;
+    max-height: 30px;
 }
 
-th:nth-child(3) {
-    width: 250px; /* CFP URL 열의 고정 너비 */
+td .scrollable-content {
+    display: block;
+    max-height: 100%;
+    overflow-x: hidden;
+    white-space: nowrap;
 }
 
-th:nth-child(4) {
-    width: 180px; /* Conference Location 열의 고정 너비 */
+td:hover .scrollable-content::-webkit-scrollbar {
+    height: 4px;
 }
 
-th:nth-child(5) {
-    width: 180px; /* Conference Dates 열의 고정 너비 */
+/* 스크롤바 스타일 */
+::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
 }
 
-/* 행에 마우스를 올렸을 때 호버 효과 */
+::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* 테이블 호버 효과 */
 .left-panel tbody tr:hover {
     background-color: #cbcaca;
 }
 
+/* 링크 스타일 */
 a.conference-name-link {
     color: black;
     text-decoration: none;
     cursor: pointer;
-    text-decoration: none; /* 밑줄 제거 */
-    color: inherit; /* 링크 색상을 부모 요소의 색상과 동일하게 설정 */
-    cursor: default; /* 마우스 커서를 기본 상태로 유지 */
 }
 
 a.conference-name-link:hover {
     color: rgb(99, 99, 99);
-} 
+}
 
+/* 오른쪽 패널 스타일 */
 .right-panel {
     display: flex;
     flex-direction: column;
-    flex-basis: 34%;
-    height: 100%; /* 패널의 높이를 고정 */
+    flex-basis: 37%;
+    height: 100%;
     gap: 20px;
     overflow: hidden;
 }
 
 .top-right {
     background-color: #ddd;
-    flex: 3; /* top-right가 right-panel 내에서 3/4 차지 */
-    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
+    flex: 3;
+    overflow: hidden;
 }
 
 .bottom-right {
     background-color: #ddd;
-    flex: 1.19; /* bottom-right가 right-panel 내에서 1/4 차지 */
-    overflow: hidden; /* 내용이 넘치지 않도록 설정 */
+    flex: 1.19;
+    overflow: hidden;
 }
 
 .bottom-right table {
@@ -137,43 +161,40 @@ a.conference-name-link:hover {
     background-color: #adadad;
     font-weight: bold;
     color: #000;
-    width: 37%;
+    width: 35%;
 }
 
 .bottom-right td {
     width: 63%;
-}
-
-/* 툴팁 컨테이너 스타일 */
-.conference-name-link {
     position: relative;
-    display: inline-block;
-    cursor: pointer;
-}
-
-.conference-name-link::after {
-    content: attr(data-tooltip); /* 툴팁 내용 */
-    position: absolute;
-    bottom: 125%; /* 위로 띄우기 */
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #333;
-    color: #fff;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 12px;
+    overflow-x: auto;
+    overflow: hidden;
     white-space: nowrap;
-    visibility: hidden; /* 기본적으로 숨김 */
-    opacity: 0;
-    z-index: 99; /* 툴팁을 가장 앞에 배치 */
-    transition: opacity 0.2s;
+    max-height: 30px;
 }
 
-.conference-name-link:hover::after {
-    visibility: visible;
-    opacity: 1; /* 마우스를 올렸을 때 툴팁 표시 */
+.bottom-right td::-webkit-scrollbar {
+    height: 4px;
 }
 
+.bottom-right td::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 10px;
+}
+
+.bottom-right td::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+}
+
+.bottom-right td::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.bottom-right td:hover {
+    overflow-x: auto;
+}
+
+/* 반응형 디자인 */
 @media (max-width: 768px) {
     .content {
         flex-direction: column;
