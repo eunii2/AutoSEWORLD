@@ -38,4 +38,15 @@ public class ConferenceDataLoader {
 
         System.out.println("DB에 조건을 만족하는 데이터만 저장 완료");
     }
+    // GPT 응답 데이터를 DB에 저장하는 메서드
+    public void saveGptResponseToDb(String gptJsonResponse) throws IOException {
+        Conference conference = objectMapper.readValue(gptJsonResponse, Conference.class);
+
+        if ("Y".equals(conference.getIsCfp()) && "Y".equals(conference.getIsConference())) {
+            conferenceRepository.save(conference);
+            System.out.println("GPT 데이터 DB 저장 완료: " + conference.getConferenceName());
+        } else {
+            System.out.println("GPT 데이터 저장 조건을 만족하지 않음");
+        }
+    }
 }

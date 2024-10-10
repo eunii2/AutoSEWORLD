@@ -9,6 +9,7 @@ public class ObjectMapperConfiguration {
     @Bean
     public ObjectMapper objectMapper() {
         ObjectMapper mapper = new ObjectMapper();
+
         return mapper;
     }
 }
