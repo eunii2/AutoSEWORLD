@@ -26,4 +26,27 @@ async function loadConferences() {
     }
 }
 
+document.addEventListener("DOMContentLoaded", function () {
+    const mapButton = document.getElementById("mapButton");
+    const mapModal = document.getElementById("mapModal");
+    const closeBtn = document.querySelector(".close");
+
+    mapButton.addEventListener("click", function () {
+        mapModal.style.display = "block";
+    });
+
+    window.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            const modal = document.getElementById('mapModal');
+            modal.style.display = 'none';
+        }
+    });
+
+    window.addEventListener("click", function (event) {
+        if (event.target === mapModal) {
+            mapModal.style.display = "none";
+        }
+    });
+});
+
 window.onload = loadConferences;
