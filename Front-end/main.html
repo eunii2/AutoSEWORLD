@@ -5,53 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AutoSEWORLD</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap">
-    <link rel="stylesheet" href="styles.css"> <!-- CSS 파일 연결 -->
+    <link rel="stylesheet" href="styles.css">
 
-    <!-- 카카오 지도 API 스크립트 주입 -->
-    <script th:inline="javascript">
-        var kakaoApiKey = /*[[${kakaoApiKey}]]*/ 'default_key';
-    </script>
-    <script th:src="'//dapi.kakao.com/v2/maps/sdk.js?appkey=' + kakaoApiKey + '&libraries=services'"></script>
-</head>
 <body>
     <header class="header">
-        <img src="./icons/earth.png" alt="AutoSEWORLD 로고" class="logo">
-        <h1>AutoSEWORLD</h1>
+        <div class="logo-container">
+            <img src="./icons/earth.png" alt="AutoSEWORLD 로고" class="logo">
+            <h1>AutoSEWORLD</h1>
+        </div>
     </header>
-    <main class="content">
-        <div class="left-panel">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Conference Name</th>
-                        <!-- <th>Submission Deadline</th>
-                        <th>CFP URL</th>
-                        <th>Conference Location</th>
-                        <th>Conference Dates</th> -->
-                    </tr>
-                </thead>
-                <tbody id="conference-table-body">
-                </tbody>
-            </table>
+    <h2 class="section-title">Upcoming Conferences!</h2>
+
+    <div class="conference-container">
+        <div class="conference-container" id="conference-container">
+
         </div>
-        <div class="right-panel">
-            <div class="top-right">
-                <!-- 여기서 id="map" 부분을 추가 -->
-                <div id="map" style="width:100%; height:100%;"></div>
-            </div>
-            <div class="bottom-right">
-                <table id="detail-table">
-                    <tbody>
-                        <tr><th>Conference Name</th><td id="detail-name"></td></tr>
-                        <tr><th>Submission Deadline</th><td id="detail-deadline"></td></tr>
-                        <tr><th>CFP URL</th><td id="detail-url"></td></tr>
-                        <tr><th>Conference Location</th><td id="detail-location"></td></tr>
-                        <tr><th>Conference Dates</th><td id="detail-dates"></td></tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </main>
+    </div>
     <script src="script.js"></script>
 </body>
 </html>
